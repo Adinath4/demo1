@@ -1,0 +1,165 @@
+_schema-version: "3.1"
+ID: project2
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: project2-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: project2-db
+  - name: uaa_project2
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    readiness-health-check-http-endpoint: /health
+    readiness-health-check-type: http
+  build-parameters:
+    builder: npm
+- name: project2-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: project2-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: project2-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: project2-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - deptproject1.zip
+      name: deptproject1
+      target-path: resources/
+    - artifacts:
+      - proj.zip
+      name: proj
+      target-path: resources/
+    - artifacts:
+      - department.zip
+      name: department
+      target-path: resources/
+- name: deptproject1
+  type: html5
+  path: app/project1
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: proj
+  type: html5
+  path: app/proj
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: project2-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: project2-destination-service
+    parameters:
+      content-target: true
+  - name: project2-repo-host
+    parameters:
+      service-key:
+        name: project2-repo-host-key
+  - name: uaa_project2
+    parameters:
+      service-key:
+        name: uaa_project2-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: CollegeDB20_project2_repo_host
+          ServiceInstanceName: project2-html5-srv
+          ServiceKeyName: project2-repo-host-key
+          sap.cloud.service: CollegeDB20
+        - Authentication: OAuth2UserTokenExchange
+          Name: CollegeDB20_uaa_project2
+          ServiceInstanceName: project2-xsuaa-service
+          ServiceKeyName: uaa_project2-key
+          sap.cloud.service: CollegeDB20
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: department
+  type: html5
+  path: app/department
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: project2-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: project2-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: project2-html5-srv
+    service-plan: app-host
+- name: project2-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: project2-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{srv-api/srv-url}
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: project2-destination-service
+    service-plan: lite
+  requires:
+  - name: srv-api
+- name: uaa_project2
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: project2-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production

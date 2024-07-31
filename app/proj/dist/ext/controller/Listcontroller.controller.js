@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/ControllerExtension"],function(e){"use strict";return e.extend("proj.ext.controller.Listcontroller",{override:{onInit:function(){var e=this.base.getExtensionAPI().getModel();debugger;var n=new sap.ushell.services.UserInfo;console.log(n)}}})});
+//# sourceMappingURL=Listcontroller.controller.js.map

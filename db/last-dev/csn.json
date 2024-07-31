@@ -1,0 +1,33 @@
+{
+  "namespace": "db",
+  "definitions": {
+    "db.lecture": {
+      "kind": "entity",
+      "@cds.persistence.journal": true,
+      "elements": {
+        "idd": {
+          "key": true,
+          "type": "cds.String",
+          "length": 36,
+          "@cds.persistence.name": "IDD"
+        },
+        "Lectid": {
+          "type": "cds.String",
+          "length": 5000,
+          "@cds.persistence.name": "LECTID"
+        },
+        "Lectname": {
+          "type": "cds.String",
+          "length": 5000,
+          "@cds.persistence.name": "LECTNAME"
+        }
+      },
+      "@cds.persistence.name": "DB_LECTURE"
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v4.9.6",
+    "build": "CDS Build v7.9.4"
+  },
+  "$version": "2.0"
+}
