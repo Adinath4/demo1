@@ -134,7 +134,7 @@
                     "options": {
                         "settings": {
                             "contextPath": "/lecture",
-                            "variantManagement": "Page",
+                            "variantManagement": "None",
                             "navigation": {
                                 "lecture": {
                                     "detail": {
@@ -145,11 +145,38 @@
                             "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "tableSettings": {
-                                        "type": "ResponsiveTable"
+                                        "type": "GridTable"
+                                    }
+                                },
+                                "@com.sap.vocabularies.UI.v1.LineItem#tableView2": {
+                                    "tableSettings": {
+                                        "type": "GridTable"
+                                    }
+                                },
+                                "@com.sap.vocabularies.UI.v1.LineItem#tableView1": {
+                                    "tableSettings": {
+                                        "type": "GridTable"
                                     }
                                 }
                             },
-                            "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView"
+                            "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView",
+                            "initialLoad": "Enabled",
+                            "views": {
+                                "paths": [
+                                    {
+                                        "key": "tableView",
+                                        "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView"
+                                    },
+                                    {
+                                        "key": "tableView2",
+                                        "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView2"
+                                    },
+                                    {
+                                        "key": "tableView3",
+                                        "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#tableView3"
+                                    }
+                                ]
+                            }
                         }
                     }
                 },
@@ -160,7 +187,22 @@
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "contextPath": "/lecture"
+                            "contextPath": "/lecture",
+                            "content": {
+                                "body": {
+                                    "sections": {
+                                        "Attachments": {
+                                            "template": "proj.ext.fragment.Attachments",
+                                            "position": {
+                                                "placement": "After",
+                                                "anchor": "GeneratedFacet1"
+                                            },
+                                            "title": "attachments"
+                                        }
+                                    }
+                                }
+                            },
+                            "variantManagement": "None"
                         }
                     }
                 }
@@ -171,6 +213,9 @@
                 "sap.ui.controllerExtensions": {
                     "sap.fe.templates.ListReport.ListReportController": {
                         "controllerName": "proj.ext.controller.Listcontroller"
+                    },
+                    "sap.fe.templates.ObjectPage.ObjectPageController": {
+                        "controllerName": "proj.ext.controller.ObjectpageController"
                     }
                 }
             }

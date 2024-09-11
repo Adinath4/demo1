@@ -8,6 +8,7 @@ modules:
   path: gen/srv
   requires:
   - name: project2-db
+  - name: TLP_Connectivity
   - name: uaa_project2
   provides:
   - name: srv-api
@@ -114,6 +115,11 @@ resources:
   parameters:
     service: hana
     service-plan: hdi-shared
+- name: TLP_Connectivity
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-plan: lite
 - name: project2-repo-host
   type: org.cloudfoundry.managed-service
   parameters:

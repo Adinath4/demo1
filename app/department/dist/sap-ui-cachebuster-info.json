@@ -1,10 +1,16 @@
 {
-  "manifest.json": 1722332818050,
+  "ext/controller/ObjectpageController.controller.js": 1722582630519,
   "Component.js": 1722320874312,
+  "ext/controller/Listreport.controller.js": 1722667423475,
+  "manifest.json": 1725872156759,
   "i18n/i18n.properties": 1722328851976,
+  "ext/controller/ObjectpageController-dbg.controller.js": 1722582630519,
+  "ext/controller/ObjectpageController.controller.js.map": 1725872156909,
+  "ext/controller/Listreport-dbg.controller.js": 1722667423475,
+  "ext/controller/Listreport.controller.js.map": 1725872156897,
   "Component-dbg.js": 1722320874312,
-  "Component.js.map": 1722332818126,
-  "Component-preload.js": 1722332818188,
-  "Component-preload.js.map": 1722332818188,
+  "Component.js.map": 1725872156900,
+  "Component-preload.js": 1725872157118,
+  "Component-preload.js.map": 1725872157118,
   "index.html": 1722320874312
 }

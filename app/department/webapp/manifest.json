@@ -148,7 +148,7 @@
           "options": {
             "settings": {
               "contextPath": "/department",
-              "variantManagement": "Page",
+              "variantManagement": "None",
               "navigation": {
                 "department": {
                   "detail": {
@@ -162,7 +162,9 @@
                     "type": "ResponsiveTable"
                   }
                 }
-              }
+              },
+              "defaultTemplateAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#table",
+              "initialLoad": "Enabled"
             }
           }
         },
@@ -180,7 +182,8 @@
                     "route": "lecturerObjectPage"
                   }
                 }
-              }
+              },
+              "variantManagement": "None"
             }
           }
         },
@@ -202,6 +205,9 @@
         "sap.ui.controllerExtensions": {
           "sap.fe.templates.ObjectPage.ObjectPageController": {
             "controllerName": "department.ext.controller.ObjectpageController"
+          },
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "department.ext.controller.Listreport"
           }
         }
       }

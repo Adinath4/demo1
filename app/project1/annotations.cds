@@ -221,7 +221,7 @@ annotate service.lecturer with @(
         {
             $Type : 'UI.DataField',
             Value : Lectid,
-            Label : 'Lectid',
+            Label : 'Lecture ID',
         },{
             $Type : 'UI.DataField',
             Value : Lectname,
@@ -231,22 +231,17 @@ annotate service.lecturer with @(
 annotate service.lecturer with {
     Lectid @(Common.ValueList : {
             $Type : 'Common.ValueListType',
-            CollectionPath : 'lecture',
+            CollectionPath : 'teachersw',
             Parameters : [
                 {
                     $Type : 'Common.ValueListParameterInOut',
                     LocalDataProperty : Lectid,
                     ValueListProperty : 'Lectid',
                 },
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    ValueListProperty : 'Lectname',
-                    LocalDataProperty : Lectname,
-                },
             ],
             Label : 'Lecture id',
         },
-        Common.ValueListWithFixedValues : true
+        Common.ValueListWithFixedValues : false
 )};
 annotate service.lecturer with {
     Lectid @Common.FieldControl : #Mandatory
